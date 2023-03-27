@@ -9,21 +9,22 @@ const Home = () => {
   const [data, setData] = useState(null);
 
   const answerQuestion = async () => {
-    let raw = JSON.stringify(text);
     await axios
-      .get(
-        "http://localhost:5000/question",
-        { data: raw },
+      .post(
+        "http://127.0.0.1:5000/question/",
+        { question: text },
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       )
-      .then((result) => {
-        setData(result.data);
+      .then((res) => {
+        setData(res.data.result[0]);
+        console.log(res);
       });
   };
+
   return (
     <div
       style={{
@@ -34,7 +35,7 @@ const Home = () => {
     >
       <h1
         style={{
-          fontFamily: "Open Sans Condensed",
+          // fontFamily: "Open Sans Condensed",
           fontWeight: "bolder",
         }}
       >
@@ -51,6 +52,7 @@ const Home = () => {
       />
       <div className="buttons">
         <SpecialButton onClick={answerQuestion}>Ask</SpecialButton>
+        {/* <SpecialButton onClick={getImage}>Image</SpecialButton> */}
       </div>
       <div class="ui message">
         <h1
@@ -68,3 +70,11 @@ const Home = () => {
 };
 
 export default Home;
+
+/* 
+"He is a right-handed batsman and occasional right-arm medium pace bowler. He is regarded as one of the best batsmen in the world and is also known for his aggressive batting style, fitness, and work ethic."
+
+"He has scored the most runs in a single One Day International (ODI) innings, the fastest century in ODI cricket and the fastest half-century in ODI cricket. He is the only batsman in the world to have scored more than 10,000 ODI runs in a single calendar year. He is also the first batsman to score three double centuries in ODIs. He is considered to be one of the best batsmen in the world and is widely regarded as one of the greatest batsmen of all time."
+
+
+*/

@@ -1,18 +1,35 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import FormInput from "../FormInput/FormInput";
 import SpecialButton from "../SpecialButton/SpecialButton";
-import "./home.css";
+import axios from "axios";
 
 const ImageQuery = () => {
   const [text, setText] = useState("");
-  const answerQuestion = () => {
-    console.log(text);
+  const [flag, setFlag] = useState(false);
+  const [imageData, setImageData] = useState(null);
+  const [imageData2, setImageData2] = useState(null);
+  const getImage = async () => {
+    await axios
+      .post(
+        "http://127.0.0.1:5000/image/",
+        { question: text },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        setImageData(res.data.result.data[0].url);
+        setImageData2(res.data.result.data[1].url);
+        setFlag(true);
+      });
   };
   return (
     <div
       style={{
-        paddingLeft: "600px",
+        paddingLeft: "400px",
         paddingTop: "80px",
         width: "1000px",
       }}
@@ -28,10 +45,17 @@ const ImageQuery = () => {
         required
       />
       <div className="buttons">
-        <SpecialButton onClick={answerQuestion}>Ask</SpecialButton>
-        <Link to="/login">
-          <SpecialButton isGoogleSignIn>Login</SpecialButton>
-        </Link>
+        <SpecialButton onClick={getImage}>Ask</SpecialButton>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1.5rem",
+        }}
+      >
+        {flag === true ? <img src={imageData} alt="imageklasdlkas" /> : null}
+        {flag === true ? <img src={imageData2} alt="imageklasdlkas" /> : null}
       </div>
       <div
         id="answer-container"

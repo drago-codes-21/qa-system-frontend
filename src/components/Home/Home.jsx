@@ -39,7 +39,7 @@ const Home = () => {
             Search for relatable images based on your query
           </div>
         </div>
-        <Link to="/home" className="ui red button">
+        <Link to="/image" className="ui red button">
           <button style={{ fontFamily: "Open Sans Condensed" }}>Search</button>
         </Link>
       </div>
@@ -57,7 +57,7 @@ const Home = () => {
             Search for relatable Music based on your query
           </div>
         </div>
-        <Link to="/home" className="ui green button">
+        <Link to="/music" className="ui green button">
           <button style={{ fontFamily: "Open Sans Condensed" }}>Search</button>
         </Link>
       </div>
