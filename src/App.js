@@ -17,7 +17,7 @@ function App() {
             fontSize: "30px",
           }}
         >
-          QAS
+          Question Answering System
         </span>
       </Link>
 
