@@ -7,7 +7,7 @@ import "./home.css";
 const Home = () => {
   const [text, setText] = useState("");
   const [data, setData] = useState(null);
-
+  const [domainArr, setDomainArr] = useState([]);
   const answerQuestion = async () => {
     await axios
       .post(
@@ -21,21 +21,54 @@ const Home = () => {
       )
       .then((res) => {
         setData(res.data.result[0]);
+        setDomainArr(res.data.domain);
         console.log(res);
       });
   };
-
+  const answerQuestionDetails = async () => {
+    await axios
+      .post(
+        "http://127.0.0.1:5000/question/details/",
+        { question: text },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        setData(res.data.result[0]);
+        console.log(res);
+      });
+  };
+  const answerQuestionDomain = async (domain) => {
+    setText(text.concat(" in ").concat(domain));
+    await axios
+      .post(
+        "http://127.0.0.1:5000/question/",
+        { question: text },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        setData(res.data.result[0]);
+        setDomainArr(res.data.domain);
+        console.log(res);
+      });
+  };
   return (
     <div
       style={{
         paddingLeft: "400px",
-        paddingTop: "80px",
+        paddingTop: "20px",
         width: "1000px",
       }}
     >
       <h1
         style={{
-          // fontFamily: "Open Sans Condensed",
           fontWeight: "bolder",
         }}
       >
@@ -52,7 +85,11 @@ const Home = () => {
       />
       <div className="buttons">
         <SpecialButton onClick={answerQuestion}>Ask</SpecialButton>
-        {/* <SpecialButton onClick={getImage}>Image</SpecialButton> */}
+        {data !== null ? (
+          <SpecialButton onClick={answerQuestionDetails} isGoogleSignIn>
+            More Info{" "}
+          </SpecialButton>
+        ) : null}
       </div>
       <div class="ui message">
         <h1
@@ -65,6 +102,17 @@ const Home = () => {
         </h1>
         <p>{data}</p>
       </div>
+      {domainArr.length > 0 &&
+        domainArr.map((domain) => {
+          return (
+            <button
+              className="ui green button"
+              onClick={() => answerQuestionDomain(domain)}
+            >
+              {domain}
+            </button>
+          );
+        })}
     </div>
   );
 };

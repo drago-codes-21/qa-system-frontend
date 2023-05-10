@@ -5,20 +5,17 @@ import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import MusicQuery from "./components/Music/MusicQuery";
 import ImageQuery from "./components/Image/ImageQuery";
+import logoImage from "./assets/logoo.jpg";
 
 function App() {
   return (
     <div>
       <Link to="/" style={{ textDecoration: "none" }}>
-        <span
-          style={{
-            fontWeight: "bolder",
-            padding: "3px",
-            fontSize: "30px",
-          }}
-        >
-          Question Answering System
-        </span>
+        <img
+          alt="logo"
+          src={logoImage}
+          style={{ height: "100px", width: "100px" }}
+        />
       </Link>
 
       <Routes>

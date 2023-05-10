@@ -5,7 +5,12 @@ const Home = () => {
   return (
     <div
       className="ui cards"
-      style={{ paddingLeft: "240px", paddingTop: "170px" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingTop: "100px",
+      }}
     >
       <div className="card" style={{ padding: "20px" }}>
         <div className="content">
@@ -43,7 +48,7 @@ const Home = () => {
           <button style={{ fontFamily: "Open Sans Condensed" }}>Search</button>
         </Link>
       </div>
-      <div className="card" style={{ padding: "20px" }}>
+      {/* <div className="card" style={{ padding: "20px" }}>
         <div className="content">
           <h1
             style={{
@@ -60,7 +65,7 @@ const Home = () => {
         <Link to="/music" className="ui green button">
           <button style={{ fontFamily: "Open Sans Condensed" }}>Search</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
