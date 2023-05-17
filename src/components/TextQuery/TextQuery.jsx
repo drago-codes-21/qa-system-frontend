@@ -22,7 +22,6 @@ const Home = () => {
       .then((res) => {
         setData(res.data.result[0]);
         setDomainArr(res.data.domain);
-        console.log(res);
       });
   };
   const answerQuestionDetails = async () => {
